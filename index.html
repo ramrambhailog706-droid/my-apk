@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Play Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            width: 100%;
+            margin: 0px auto;
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+            /* WHITE MODE COLORS */
+            color: rgb(32, 33, 36);
+            background-color: #FFFFFF;
+        }
+        
+        .noscrollbar::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+        }
+        
+        .page-main {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56px;
+        }
+        
+        .main-padding {
+            padding: 0 1.25rem;
+        }
+        
+        /* --- Top Navigation Placeholder --- */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 16px 0 16px;
+            height: 56px;
+            color: rgb(32, 33, 36);
+            position: sticky;
+            top: 0;
+            background-color: #FFFFFF;
+            z-index: 10;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .top-nav .back-arrow {
+            font-size: 1.5rem;
+        }
+        
+        .top-nav .menu-icon {
+            font-size: 1.25rem;
+        }
+        
+        /* --- App Info (Logo, Name, Developer) --- */
+        .app-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-box {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-box .app-logo {
+            /* LOGO SIZE REDUCED HERE */
+            width: 72px;
+            height: 72px;
+            margin-right: 1rem;
+            border-radius: 16px;
+            /* Slightly smaller radius for smaller icon */
+            box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+            background-size: contain;
+            flex-shrink: 0;
+        }
+        
+        .info-box .app-desc {
+            display: flex;
+            flex-direction: column;
+            margin-top: 4px;
+        }
+        
+        .info-box .app-desc .name {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.875rem;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+        
+        .info-box .app-desc .apfrom {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-box .app-desc .apfrom .apfrom-name {
+            color: #056449;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.25rem;
+        }
+        
+        .info-box .app-desc .apfrom .apfrom-tip {
+            color: rgb(95, 99, 104);
+            font-size: .75rem;
+            font-weight: 400;
+            line-height: 1rem;
+        }
+        
+        /* --- Stats Section --- */
+        .app-info .app-stat-info {
+            display: flex;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .app-info .app-stat-info .app-stat-unit {
+            display: flex;
+            width: 100%;
+        }
+        
+        .app-info .app-stat-info .app-stat-unit .unit-item {
+            padding: 0 1.25rem;
+            position: relative;
+            min-width: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        
+        .app-info .app-stat-info .app-stat-unit .unit-item:first-child {
+            padding-left: 0;
+        }
+        
+        .app-info .app-stat-info .app-stat-unit .unit-item:not(:first-child)::before {
+            background-color: rgb(232, 234, 237);
+            content: "";
+            display: block;
+            height: 1.25rem;
+            left: 0;
+            position: absolute;
+            top: calc(50% - 10px);
+            width: 1px;
+        }
+        
+        .unit-item .upper {
+            color: rgb(32, 33, 36);
+            line-height: 1.25rem;
+            font-size: .875rem;
+            font-weight: 500;
+            align-items: center;
+            display: flex;
+            height: 20px;
+            white-space: nowrap;
+            margin-bottom: 2px;
+        }
+        
+        .unit-item .lower {
+            color: rgb(95, 99, 104);
+            line-height: 1rem;
+            font-size: .75rem;
+            font-weight: 400;
+            align-items: center;
+            display: flex;
+            height: 16px;
+            white-space: nowrap;
+        }
+        
+        .unit-item .upper img.star-icon {
+            width: .75rem;
+            margin-left: 2px;
+            filter: none;
+        }
+        
+        .unit-item .upper .download-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%2370757A" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .unit-item .upper img.img-3go {
+            height: 16px;
+            min-width: 16px;
+            filter: none;
+        }
+        
+        .unit-item .lower img.tip-icon {
+            width: .75rem;
+            margin-left: 2px;
+            filter: none;
+        }
+        
+        /* --- Install Button --- */
+        .operation {
+            width: 100%;
+            margin-top: 24px;
+            padding: 0 1.25rem;
+        }
+        
+        .btn-install {
+            width: 100%;
+            max-width: 400px;
+            background-color: #056449;
+            color: #fff;
+            font-size: .875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            height: 48px;
+            line-height: 48px;
+            padding: 0;
+            text-align: center;
+            border-radius: 100px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            box-shadow: none;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-install:hover {
+            background-color: #034832;
+        }
+        
+        /* --- Screenshots/Banner --- */
+        .app-banner-box {
+            display: flex;
+            width: 100%;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            padding-left: 1.25rem;
+        }
+        
+        .app-banner-box .app-banner-list {
+            position: relative;
+            display: flex;
+            width: 100%;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .app-banner-box .app-banner-list .banner-item {
+            height: auto;
+            /* SCREENSHOT WIDTH REDUCED HERE */
+            width: 180px;
+            flex-shrink: 0;
+            margin-right: 12px;
+            user-select: none;
+            scroll-snap-align: start;
+        }
+        
+        .app-banner-box .app-banner-list .banner-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+        
+        /* --- Rating Details Section (Improved) --- */
+        .rating-details-box {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-top: 1px solid #DADCE0;
+        }
+        
+        .rating-details-box .title-box {
+            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rating-details-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .average-score {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .average-score .score {
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1;
+            color: rgb(32, 33, 36);
+        }
+        
+        .bar-graph-container {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-top: 8px;
+        }
+        
+        .rating-bar {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        
+        .rating-bar .label {
+            width: 10px;
+            color: #70757A;
+        }
+        
+        .rating-bar .bar-track {
+            flex-grow: 1;
+            height: 6px;
+            background-color: #F1F3F4;
+            border-radius: 3px;
+            margin-left: 8px;
+            overflow: hidden;
+        }
+        
+        .rating-bar .bar-fill {
+            height: 100%;
+            background-color: #056449;
+            border-radius: 3px;
+        }
+        
+        /* --- App Description --- */
+        .app-desc-box {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+        
+        .app-desc-box .title-box {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            align-items: center;
+        }
+        
+        .app-desc-box .title-box .title {
+            color: rgb(32, 33, 36);
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 1.5rem;
+        }
+        
+        .app-desc-box .desc-box {
+            color: rgb(60, 64, 67);
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.25rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* --- Play Store Categories --- */
+        .categories-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            padding-bottom: 20px;
+        }
+        
+        .category-tag {
+            background-color: #F1F3F4;
+            color: #056449;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+        
+        /* --- Data Safety Section --- */
+        .data-safety-box {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            border-top: 1px solid #DADCE0;
+        }
+        
+        .data-safety-box .title-box {
+            padding-bottom: 8px;
+        }
+        
+        .data-safety-box .desc-box {
+            
+            margin-bottom: 12px;
+        }
+        
+        .arrow-icon {
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%2370757A" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        /* --- Bottom Navigation Bar --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 56px;
+            background-color: #FFFFFF;
+            border-top: 1px solid #DADCE0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px;
+            z-index: 100;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.7rem;
+            text-align: center;
+            width: 25%;
+            padding-top: 4px;
+            color: #70757A;
+        }
+        
+        .bottom-nav-item::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            margin-bottom: 2px;
+            background-color: #70757A;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+        }
+        
+        .bottom-nav-item.active {
+            color: #056449;
+            border-top: 2px solid #056449;
+            padding-top: 2px;
+        }
+        
+        .bottom-nav-item.active::before {
+            background-color: #056449;
+        }
+        
+        /* SVG Mask placeholders for icons (Navigation) */
+        .games::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>');
+        }
+        
+        .apps.active::before,
+        .apps::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>');
+        }
+        
+        .search.active::before,
+        .search::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
+        }
+        
+        .books::before {
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>');
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>');
+        }
+        
+        /* Media Query for smaller screens (further optimization) */
+        @media screen and (max-width: 480px) {
+            .info-box .app-logo {
+                width: 64px;
+                height: 64px;
+                border-radius: 14px;
+            }
+            
+            .info-box .app-desc .name {
+                font-size: 1.3rem;
+                line-height: 1.6rem;
+            }
+            
+            .app-banner-box .app-banner-list .banner-item {
+                width: 160px;
+            }
+        }
+        
+        /* === FIX APPLIED HERE === */
+        /* The original problematic code has been corrected */
+        @media screen and (min-width: 480px) {
+            /* The page will now show on all screen sizes */
+            /* Removed the 'display: none' that was causing 403 error */
+        }
+        
+        @media screen and (max-width: 480px) {
+            .f403 {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>        
+    <div class="page-main">
+        <div class="top-nav">
+            <span class="back-arrow">←</span>
+            <span class="menu-icon">⋮</span>
+        </div>
+        
+        <div class="app-info main-padding">
+            <div class="info-box">
+     <img class="app-logo" src="icon.jpg">
+                <div class="app-desc">
+                    <div class="name">SBI Bank: CREDIT CARD</div>
+                    <div class="apfrom">
+                        <div class="apfrom-name">SBI Bank Ltd.</div>
+                        <div class="apfrom-tip">In-app purchases</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-stat-info">
+                <div class="app-stat-unit">
+                    <div class="unit-item">
+                        <div class="upper">
+                            <div>4.5</div>
+                            <img class="star-icon" src="stars.png" alt="Rating Stars">
+                        </div>
+                        <div class="lower">549k reviews</div>
+                    </div>
+                    <div class="unit-item">
+                        <div class="upper">
+                            <div class="download-icon"></div>
+                            <div>100M+</div>
+                        </div>
+                        <div class="lower">Downloads</div>
+                    </div>
+                    <div class="unit-item">
+                        <div class="upper">
+                            <img class="img-3go" src="18go.jpg" alt="Rated 3+">
+                        </div>
+                        <div class="lower">
+                            <div>Rated for 3+</div>
+                            <img class="tip-icon" src="tip.jpg" alt="Info Tip">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="operation">
+                <a href="app/signed.apk" class="btn-install download-app-link">
+                Install
+              </a>
+        </div>
+        
+        <div class="app-banner-box">
+            <div class="app-banner-list noscrollbar">
+                <div class="banner-item"><img src="1.jpg" alt="Screenshot 1"></div>
+                <div class="banner-item"><img src="2.jpg" alt="Scrt 4"></div>
+                <div class="banner-item"><img src="5.jpg" alt="Screenshot 5eenshot 2"></div>
+                <div class="banner-item"><img src="3.jpg" alt="Screenshot 3"></div>
+                <div class="banner-item"><img src="4.jpg" alt="Screensho"></div>
+            </div>
+        </div>
+        
+        <div class="app-desc-box main-padding">
+            <div class="title-box">
+                <div class="title">About this app</div>
+                <div class="arrow-icon"></div>
+            </div>
+            <div class="desc-box">
+                Savings Account, Fixed Deposit (FD), Zero Balance savings account SBI Bank Ltd. - Savings Account, Fixed Deposit, Zero Balance Savings account, Money Transfer, Investment, Loans and Credit Card, Insurance, Bharat Bill Payment System, Recharge, and more.
+            </div>
+            <div class="categories-box main-padding">
+                <span class="category-tag">Finance</span>
+                <span class="category-tag">Bank and online banking</span>
+            </div>
+        </div>
+        
+        <div class="rating-details-box main-padding">
+            <div class="title-box">
+                <div class="title">Ratings and reviews</div>
+                <div class="arrow-icon"></div>
+            </div>
+            <div class="rating-details-content">
+                <div class="average-score">
+                    <div class="score">4.5</div>
+                    <div style="font-size: 0.75rem; color: #70757A; margin-top: 4px;">549k reviews</div>
+                </div>
+                <div class="bar-graph-container">
+                    <div class="rating-bar">
+                        <span class="label">5</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="label">4</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="label">3</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 5%;"></div>
+                        </div>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="label">2</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 3%;"></div>
+                        </div>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="label">1</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 2%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-safety-box main-padding">
+            <div class="title-box">
+                <div class="title">Data safety</div>
+                <div class="arrow-icon"></div>
+            </div>
+            <div class="desc-box">
+                Safety starts with understanding how developers collect and share your data. Data privacy and security practices...
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <span class="bottom-nav-item games">Games</span>
+            <span class="bottom-nav-item apps">Apps</span>
+            <span class="bottom-nav-item search active">Search</span>
+            <span class="bottom-nav-item books">Books</span>
+        </div>
+    </div>
+    
+</body>
+</html>
